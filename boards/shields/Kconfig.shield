@@ -1,2 +1,0 @@
-config SHIELD_ALINE30
-    def_bool $(shields_list_contains,aline30)
