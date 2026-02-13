@@ -1,4 +1,4 @@
-if SHIELD_THUMBROTARY_LEFT
+if SHIELD_aline30_LEFT
 
 config ZMK_KEYBOARD_NAME
 	default "tr_l"
