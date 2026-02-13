@@ -20,6 +20,6 @@
 ---
 include:
   - board: seeeduino_xiao_ble
-    shield: aline30_left rgbled_adapter
+    shield: aline30_left
   - board: seeeduino_xiao_ble
-    shield: aline30_right rgbled_adapter
+    shield: aline30_right
