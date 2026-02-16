@@ -1,23 +1,4 @@
-if SHIELD_aline30_LEFT
-
+if SHIELD_ALINE30
 config ZMK_KEYBOARD_NAME
-	default "tr_l"
-
-config ZMK_SPLIT_BLE_ROLE_CENTRAL
-	default y
-
-endif
-
-if SHIELD_aline30_RIGHT
-
-config ZMK_KEYBOARD_NAME
-	default "tr_r"
-	
-endif
-
-if SHIELD_aline30_LEFT || SHIELD_aline30_RIGHT
-
-config ZMK_SPLIT
-	default y
-
+        default "aline30"
 endif

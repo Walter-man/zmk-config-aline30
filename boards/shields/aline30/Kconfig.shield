@@ -1,8 +1,3 @@
-# Copyright (c) 2020 Pete Johanson
-# SPDX-License-Identifier: MIT
-
-config SHIELD_aline30_LEFT
-	def_bool $(shields_list_contains,aline30_left)
-
-config SHIELD_aline30_RIGHT
-	def_bool $(shields_list_contains,aline30_right)
+# No whitespace after the comma or in your keyboard name!
+config SHIELD_ALINE30
+        def_bool $(shields_list_contains,aline30)
