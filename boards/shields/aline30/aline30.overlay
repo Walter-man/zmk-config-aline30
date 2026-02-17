@@ -51,33 +51,22 @@
 	};
 };
 
-&pinctrl {
-	spi1_default: spi1_default {
-		group1 {
-			psels = <2>; // P0.02 (D0)
-		};
-	};
-	spi1_sleep: spi1_sleep {
-		group1 {
-			psels = <2>;
-			low-power-enable;
-		};
-	};
-};
-
+// pinctrlを使わず、古い形式の指定方法でエラーを回避します
 &spi1 {
 	compatible = "nordic,nrf-spim";
 	status = "okay";
-	pinctrl-0 = <&spi1_default>;
-	pinctrl-1 = <&spi1_sleep>;
-	pinctrl-names = "default", "sleep";
+	mosi-pin = <2>; // P0.02 (D0) に直接アサイン
+	// SCK/MISOは不要ですが、ダミーを割り当てないとエラーになる場合があるため
+	// 使わないピン（例：P1.00など）を避けて無効な値を設定
+	sck-pin = <31>; 
+	miso-pin = <31>;
 
 	led_strip: ws2812@0 {
 		compatible = "worldsemi,ws2812-spi";
 		label = "WS2812";
 		reg = <0>;
 		spi-max-frequency = <4000000>;
-		chain-length = <12>; // LEDの数に合わせて調整してください
+		chain-length = <12>; 
 		spi-one-frame = <0x70>;
 		spi-zero-frame = <0x40>;
 		color-mapping = <LED_COLOR_ID_GREEN LED_COLOR_ID_RED LED_COLOR_ID_BLUE>;
