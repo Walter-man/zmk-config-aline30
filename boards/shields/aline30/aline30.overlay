@@ -65,9 +65,9 @@
 &spi1 {
     compatible = "nordic,nrf-spim";
     status = "okay";
-    sck-pin = <11>; // 使わないピンを指定（D0のみ使いたいため）
-    mosi-pin = <0>;  // LED(D0)を指定
-    miso-pin = <12>; // 使わないピンを指定
+    sck-pin = <11>;
+    mosi-pin = <0>;
+    miso-pin = <12>;
 
     led_strip: ws2812@0 {
         compatible = "worldsemi,ws2812-spi";
