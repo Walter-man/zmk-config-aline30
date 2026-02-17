@@ -3,87 +3,85 @@
 #include "aline30.dtsi"
 
 / {
-    chosen {
-        zmk,kscan = &kscan0;
-        zmk,matrix_transform = &default_transform;
-        zmk,underglow = &led_strip;
-    };
+	chosen {
+		zmk,kscan = &kscan0;
+		zmk,matrix_transform = &default_transform;
+		zmk,underglow = &led_strip;
+	};
 
-    shift_reg: gpio_shift_reg {
-        compatible = "zmk,gpio-595";
-        label = "SHIFT_REG";
-        gpio-controller;
-        #gpio-cells = <2>;
-        ngpios = <8>;
-    };
+	shift_reg: gpio_shift_reg {
+		compatible = "zmk,gpio-595";
+		label = "SHIFT_REG";
+		gpio-controller;
+		#gpio-cells = <2>;
+		ngpios = <8>;
+	};
 
-    kscan0: kscan {
-        compatible = "zmk,kscan-gpio-matrix";
-        label = "KSCAN";
-        diode-direction = "col2row";
-        row-gpios
-            = <&xiao_d 4 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
-            , <&xiao_d 5 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
-            , <&xiao_d 6 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
-            , <&xiao_d 7 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
-            ;
-        col-gpios
-            = <&xiao_d 1 GPIO_ACTIVE_HIGH>
-            , <&xiao_d 2 GPIO_ACTIVE_HIGH>
-            , <&xiao_d 3 GPIO_ACTIVE_HIGH>
-            , <&shift_reg 0 GPIO_ACTIVE_HIGH>
-            , <&shift_reg 1 GPIO_ACTIVE_HIGH>
-            , <&shift_reg 2 GPIO_ACTIVE_HIGH>
-            , <&shift_reg 3 GPIO_ACTIVE_HIGH>
-            , <&shift_reg 4 GPIO_ACTIVE_HIGH>
-            , <&shift_reg 5 GPIO_ACTIVE_HIGH>
-            , <&shift_reg 6 GPIO_ACTIVE_HIGH>
-            ;
-    };
+	kscan0: kscan {
+		compatible = "zmk,kscan-gpio-matrix";
+		label = "KSCAN";
+		diode-direction = "col2row";
+		row-gpios
+			= <&xiao_d 4 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
+			, <&xiao_d 5 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
+			, <&xiao_d 6 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
+			, <&xiao_d 7 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
+			;
+		col-gpios
+			= <&xiao_d 1 GPIO_ACTIVE_HIGH>
+			, <&xiao_d 2 GPIO_ACTIVE_HIGH>
+			, <&xiao_d 3 GPIO_ACTIVE_HIGH>
+			, <&shift_reg 0 GPIO_ACTIVE_HIGH>
+			, <&shift_reg 1 GPIO_ACTIVE_HIGH>
+			, <&shift_reg 2 GPIO_ACTIVE_HIGH>
+			, <&shift_reg 3 GPIO_ACTIVE_HIGH>
+			, <&shift_reg 4 GPIO_ACTIVE_HIGH>
+			, <&shift_reg 5 GPIO_ACTIVE_HIGH>
+			, <&shift_reg 6 GPIO_ACTIVE_HIGH>
+			;
+	};
 };
 
 &xiao_i2c { status = "disabled"; };
 
 &xiao_spi {
-    status = "okay";
-    cs-gpios = <&xiao_d 9 GPIO_ACTIVE_LOW>;
-
-    shift_reg_device: gpio_shift_reg@0 {
-        compatible = "zmk,gpio-595";
-        reg = <0>;
-        spi-max-frequency = <200000>;
-    };
+	status = "okay";
+	cs-gpios = <&xiao_d 9 GPIO_ACTIVE_LOW>;
+	shift_reg_device: gpio_shift_reg@0 {
+		compatible = "zmk,gpio-595";
+		reg = <0>;
+		spi-max-frequency = <200000>;
+	};
 };
 
 &pinctrl {
-    spi1_default: spi1_default {
-        group1 {
-            psels = <0x00000002>;
-        };
-    };
-    spi1_sleep: spi1_sleep {
-        group1 {
-            psels = <0x00000002>;
-            low-power-enable;
-        };
-    };
+	spi1_default: spi1_default {
+		group1 {
+			psels = <2>;
+		};
+	};
+	spi1_sleep: spi1_sleep {
+		group1 {
+			psels = <2>;
+			low-power-enable;
+		};
+	};
 };
 
 &spi1 {
-    compatible = "nordic,nrf-spim";
-    status = "okay";
-    pinctrl-0 = <&spi1_default>;
-    pinctrl-1 = <&spi1_sleep>;
-    pinctrl-names = "default", "sleep";
-
-    led_strip: ws2812@0 {
-        compatible = "worldsemi,ws2812-spi";
-        label = "WS2812";
-        reg = <0>;
-        spi-max-frequency = <4000000>;
-        chain-length = <12>;
-        spi-one-frame = <0x70>;
-        spi-zero-frame = <0x40>;
-        color-mapping = <LED_COLOR_ID_GREEN LED_COLOR_ID_RED LED_COLOR_ID_BLUE>;
-    };
+	compatible = "nordic,nrf-spim";
+	status = "okay";
+	pinctrl-0 = <&spi1_default>;
+	pinctrl-1 = <&spi1_sleep>;
+	pinctrl-names = "default", "sleep";
+	led_strip: ws2812@0 {
+		compatible = "worldsemi,ws2812-spi";
+		label = "WS2812";
+		reg = <0>;
+		spi-max-frequency = <4000000>;
+		chain-length = <12>;
+		spi-one-frame = <0x70>;
+		spi-zero-frame = <0x40>;
+		color-mapping = <LED_COLOR_ID_GREEN LED_COLOR_ID_RED LED_COLOR_ID_BLUE>;
+	};
 };
