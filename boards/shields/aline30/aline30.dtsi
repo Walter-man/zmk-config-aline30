@@ -3,6 +3,7 @@
 / {
     chosen {
         zmk,matrix_transform = &default_transform;
+        // zmk,physical_layout = &physical_layout0; // 必要に応じて
     };
 
     default_transform: key_transform0 {
@@ -17,36 +18,11 @@
                             RC(3,2) RC(3,3) RC(3,4) RC(3,5) RC(3,6) RC(3,7)
         >;
     };
-    
-    physical_layout0: physical_layout_0 { // First physical layout, use different naming for other layouts
-	  compatible = "zmk,physical-layout";
-	  display-name = "Default Layout";
-	  kscan = <&kscan0>; // Label of the kscan node, optional if all layouts use the same
-	  transform = <&default_transform>; // Label of the matrix transform for this layout
-	};
 
-   kscan0: kscan {
-    compatible = "zmk,kscan-gpio-matrix";
-    diode-direction = "col2row"; 
-
-    row-gpios
-        = <&xiao_d 4 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
-        , <&xiao_d 5 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
-        , <&xiao_d 6 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
-        , <&xiao_d 7 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
-        ;
-
-    col-gpios
-        = <&xiao_d 1 GPIO_ACTIVE_HIGH> // Col1
-        , <&xiao_d 2 GPIO_ACTIVE_HIGH> // Col2
-        , <&xiao_d 3 GPIO_ACTIVE_HIGH> // Col3
-        , <&shift_reg 0 GPIO_ACTIVE_HIGH> // Col4 (QA)
-        , <&shift_reg 1 GPIO_ACTIVE_HIGH> // Col5 (QB)
-        , <&shift_reg 2 GPIO_ACTIVE_HIGH> // Col6 (QC)
-        , <&shift_reg 3 GPIO_ACTIVE_HIGH> // Col7 (QD)
-        , <&shift_reg 4 GPIO_ACTIVE_HIGH> // Col8 (QE)
-        , <&shift_reg 5 GPIO_ACTIVE_HIGH> // Col9 (QF)
-            ;
+    physical_layout0: physical_layout_0 {
+        compatible = "zmk,physical-layout";
+        display-name = "Default Layout";
+        transform = <&default_transform>;
+        kscan = <&kscan0>;
     };
-};   
-&xiao_i2c { status = "disabled"; };
+};
