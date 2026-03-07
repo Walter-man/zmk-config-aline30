@@ -1,17 +1,13 @@
 #include <behaviors.dtsi>
 #include <dt-bindings/zmk/keys.h>
 
-/ {    
+/ {
     keymap {
         compatible = "zmk,keymap";
-
         default_layer {
-            // 現在の最小構成スキャン（3列×4行）に完全に合わせます
             bindings = <
-                &kp Q &kp W &kp E
-                &kp A &kp S &kp D
-                &kp Z &kp X &kp C
-                &kp BSPC &kp SPACE &kp ENTER
+                &kp A  // D1ピンに対応
+                &kp B  // D2ピンに対応
             >;
         };
     };
