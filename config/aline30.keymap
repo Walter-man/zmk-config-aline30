@@ -6,8 +6,10 @@
         compatible = "zmk,keymap";
         default_layer {
             bindings = <
-                &kp A  // D1ピンに対応
-                &kp B  // D2ピンに対応
+                &kp Q &kp W &kp E
+                &kp A &kp S &kp D
+                &kp Z &kp X &kp C
+                &kp ESC &kp SPACE &kp ENTER
             >;
         };
     };
