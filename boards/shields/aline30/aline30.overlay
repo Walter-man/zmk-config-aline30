@@ -6,7 +6,6 @@
         zmk,kscan = &kscan0;
     };
 
-    // 行列ではなく、ピン直結（ダイレクト）モード
     kscan0: kscan {
         compatible = "zmk,kscan-gpio-direct";
         input-gpios

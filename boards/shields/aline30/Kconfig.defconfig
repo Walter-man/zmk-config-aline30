@@ -1,4 +1,10 @@
 if SHIELD_ALINE30
+
 config ZMK_KEYBOARD_NAME
-        default "aline30"
+    default "Aline30"
+
+# Bluetoothの安定性を高め、検索で見つけやすくする
+config ZMK_BLE=y
+config BT=y
+
 endif
