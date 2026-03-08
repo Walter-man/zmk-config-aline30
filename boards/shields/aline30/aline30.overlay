@@ -1,4 +1,5 @@
 #include <dt-bindings/zmk/matrix_transform.h>
+#include <dt-bindings/gpio/gpio.h>
 #include "aline30.dtsi"
 
 / {
@@ -9,43 +10,19 @@
 
     kscan0: kscan {
         compatible = "zmk,kscan-gpio-matrix";
-        label = "KSCAN";
         diode-direction = "col2row";
-        row-gpios
-            = <&xiao_d 4 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
-            , <&xiao_d 5 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
-            , <&xiao_d 6 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
-            , <&xiao_d 7 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
-            ;
-        col-gpios
-            = <&xiao_d 1 GPIO_ACTIVE_HIGH>
-            , <&xiao_d 2 GPIO_ACTIVE_HIGH>
-            , <&xiao_d 3 GPIO_ACTIVE_HIGH>
-            , <&shift_reg 0 GPIO_ACTIVE_HIGH>
-            , <&shift_reg 1 GPIO_ACTIVE_HIGH>
-            , <&shift_reg 2 GPIO_ACTIVE_HIGH>
-            , <&shift_reg 3 GPIO_ACTIVE_HIGH>
-            , <&shift_reg 4 GPIO_ACTIVE_HIGH>
-            , <&shift_reg 5 GPIO_ACTIVE_HIGH>
-            , <&shift_reg 6 GPIO_ACTIVE_HIGH>
-            ;
-    };
-};
 
-&xiao_i2c { status = "disabled"; };
+        /* Row pins */
+        row-gpios =
+            <&gpio0 4 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>,
+            <&gpio0 5 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>,
+            <&gpio1 11 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>,
+            <&gpio1 12 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
 
-&xiao_spi {
-    status = "okay";
-    cs-gpios = <&xiao_d 9 GPIO_ACTIVE_LOW>;
-
-    // 統合したシフトレジスタ定義
-    shift_reg: gpio_shift_reg@0 {
-        compatible = "zmk,gpio-595";
-        reg = <0>;
-        label = "SHIFT_REG";
-        spi-max-frequency = <200000>;
-        gpio-controller;
-        #gpio-cells = <2>;
-        ngpios = <8>;
+        /* Column pins (テスト用に3列だけ) */
+        col-gpios =
+            <&gpio0 3 GPIO_ACTIVE_LOW>,
+            <&gpio0 28 GPIO_ACTIVE_LOW>,
+            <&gpio0 29 GPIO_ACTIVE_LOW>;
     };
 };
