@@ -1,6 +1,4 @@
 if SHIELD_ALINE30
-
 config ZMK_KEYBOARD_NAME
-    default "Aline30"
-
+        default "aline30"
 endif
