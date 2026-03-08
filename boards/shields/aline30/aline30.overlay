@@ -1,6 +1,5 @@
 #include <dt-bindings/zmk/matrix_transform.h>
 #include <dt-bindings/gpio/gpio.h>
-#include "aline30.dtsi"
 
 / {
     chosen {
@@ -12,17 +11,28 @@
         compatible = "zmk,kscan-gpio-matrix";
         diode-direction = "col2row";
 
-        /* Row pins */
         row-gpios =
-            <&gpio0 4 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>,
-            <&gpio0 5 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>,
-            <&gpio1 11 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>,
-            <&gpio1 12 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
+            <&gpio0 4 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>,  // D4
+            <&gpio0 5 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>,  // D5
+            <&gpio1 11 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>, // D6
+            <&gpio1 12 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>; // D7
 
-        /* Column pins (テスト用に3列だけ) */
         col-gpios =
-            <&gpio0 3 GPIO_ACTIVE_LOW>,
-            <&gpio0 28 GPIO_ACTIVE_LOW>,
-            <&gpio0 29 GPIO_ACTIVE_LOW>;
+            <&gpio0 3 GPIO_ACTIVE_LOW>,   // D1
+            <&gpio0 28 GPIO_ACTIVE_LOW>,  // D2
+            <&gpio0 29 GPIO_ACTIVE_LOW>;  // D3
+    };
+
+    default_transform: key_transform0 {
+        compatible = "zmk,matrix-transform";
+        rows = <4>;
+        columns = <3>;
+
+        map = <
+            RC(0,0) RC(0,1) RC(0,2)
+            RC(1,0) RC(1,1) RC(1,2)
+            RC(2,0) RC(2,1) RC(2,2)
+            RC(3,0) RC(3,1) RC(3,2)
+        >;
     };
 };
